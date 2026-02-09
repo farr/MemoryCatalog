@@ -7,55 +7,121 @@
 % If you can, leave this package for last
 \usepackage{showyourwork}
 
+\newcommand{\dif}{\mathrm{d}}
+
 % Begin!
 \begin{document}
 
 % Title
-\title{An open source scientific article}
+\title{Memory in the Population of GW Signals Detected by LVK}
 
 % Author list
-\author{@farr}
+\author[0000-0003-1540-8562]{Will M. Farr}
+\email{wfarr@flatironinstitute.org}
+\email{will.farr@stonybrook.edu}
+\affiliation{Center for Computational Astrophysics, Flatiron Institute, 162 5th Avenue, New York NY 10010, USA}
+\affiliation{Department of Physics and Astronomy, Stony Brook University, Stony Brook NY 11794, USA}
 
-% Abstract with filler text
+\author{and friends}
+
 \begin{abstract}
-    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-    Ut purus elit, vestibulum ut, placerat ac, adipiscing vitae, felis.
-    Curabitur dictum gravida mauris, consectetuer id, vulputate a, magna.
-    Donec vehicula augue eu neque, morbi tristique senectus et netus et.
-    Mauris ut leo, cras viverra metus rhoncus sem, nulla et lectus vestibulum.
-    Phasellus eu tellus sit amet tortor gravida placerat.
-    Integer sapien est, iaculis in, pretium quis, viverra ac, nunc.
-    Praesent eget sem vel leo ultrices bibendum.
-    Aenean faucibus, morbi dolor nulla, malesuada eu, pulvinar at, mollis ac.
-    Curabitur auctor semper nulla donec varius orci eget risus.
-    Duis nibh mi, congue eu, accumsan eleifend, sagittis quis, diam.
-    Duis eget orci sit amet orci dignissim rutrum.
+    Waveform inception.
 \end{abstract}
 
 % Main body with filler text
-\section{Introduction}
-\label{sec:intro}
+\section{Methodology}
+\label{sec:methodology}
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-Ut purus elit, vestibulum ut, placerat ac, adipiscing vitae, felis.
-Curabitur dictum gravida mauris, consectetuer id, vulputate a, magna.
-Donec vehicula augue eu neque, morbi tristique senectus et netus et.
-Mauris ut leo, cras viverra metus rhoncus sem, nulla et lectus vestibulum.
-Phasellus eu tellus sit amet tortor gravida placerat.
-Integer sapien est, iaculis in, pretium quis, viverra ac, nunc.
-Praesent eget sem vel leo ultrices bibendum.
-Aenean faucibus, morbi dolor nulla, malesuada eu, pulvinar at, mollis ac.
-Curabitur auctor semper nulla donec varius orci eget risus.
-Duis nibh mi, congue eu, accumsan eleifend, sagittis quis, diam.
-Duis eget orci sit amet orci dignissim rutrum.
+Gravitational wave memory is an effect predicted by general relativity, in which
+the passage of a gravitational wave causes a permanent displacement in the
+positions of test masses. This effect is expected to be present in the signals
+detected by the LIGO-Virgo-KAGRA (LVK) collaboration, and its detection would
+provide a new test of general relativity and insights into the nature of
+gravity.  Something, something, something IR triangle.  It would be wicked cool
+to detect, and we may have already observed it and just not know.
 
-Nam dui ligula, fringilla a, euismod sodales, sollici- tudin vel, wisi.
-Morbi auctor lorem non justo, nam lacus libero, pretium at, lobortis vitae.
-Donec aliquet, tortor sed accumsan bibendum, erat ligula aliquet magna.
-Morbi ac orci et nisl hendrerit mollis, suspendisse ut massa, cras nec ante.
-Pellentesque a nulla cum sociis natoque penatibus et magnis dis parturient.
-Aliquam tincidunt urna, nulla ullamcorper vestibulum turpis.
-Pellentesque cursus luctus mauris \citep{Luger2021}.
+Gravitational memory is a non-linear effect in the wave zone.  Suppose a
+gravitational wave with strain $h$ is passing through a detector.  The memory
+effect causes additional strain, $h_m$, to occur, which is roughly 
+\begin{equation}
+h_m(t) \sim \frac{1}{2} \int_{-\infty}^t \dif s \, \dot{h}^2(s).
+\end{equation}
+Most waveform models do not incorporate the memory effect, but it can be
+calculated straightforwardly from the strain output by any given waveform model.
+
+Since existing waveform models do not include the memory effect, the catalogs of
+events detected by the LVK collaboration do not include it in their estimation
+of each observed event's parameters, either.  Suppose we have a set of parameter
+samples, taken from the posterior distribution of parameters, $\theta$, for a
+given event, $\left\{ \theta_i \mid i = 1, \ldots, N \right\}$ (here the
+parameters included in $\theta$ are the usual source parameters---masses, spins,
+distances, etc---as well as any other parameters needed to describe the
+observation, such as detector calibration parameters, etc).  The log-likelihood
+used to produce these samples takes the form 
+\begin{multline}
+    \log \mathcal{L} = -\frac{1}{2} \left\langle d - R(\theta) h(\theta) \mid d - R(\theta) h(\theta) \right\rangle + C \\ = -\frac{1}{2} \left\langle d - \tilde{h}(\theta) \mid d - \tilde{h}(\theta) \right\rangle + C,
+\end{multline}
+where $d$ is the data, $h(\theta)$ is the waveform model evaluated at parameters
+$\theta$, $R(\theta)$ is the detector response (including calibration effects),
+$\tilde{h} = R h$ is the waveform projected into the data using the detector
+response, $\langle \cdot \mid \cdot \rangle$ is the usual noise-weighted inner
+product, and $C$ is an (unimportant) parameter-independent constant.  Let
+$r(\theta)$ denote the \emph{residuals} obtained by evaluating the waveform
+model at parameters $\theta$ and subtracting it from the data, i.e. $r(\theta) =
+d - R(\theta) h(\theta) = d - \tilde{h}(\theta)$; then the likelihood is 
+\begin{equation}
+    \log \mathcal{L} = -\frac{1}{2} \left\langle r(\theta) \mid r(\theta) \right\rangle + C.
+\end{equation}
+
+If we now wish to add in the effects of memory, we can calculate the memory contribution to the strain, $h_m(\theta)$, and add it to the waveform model, so that the likelihood becomes
+\begin{equation}
+    \log \mathcal{L} = -\frac{1}{2} \left\langle r(\theta) - \tilde{h}_m(\theta) \mid r(\theta) - \tilde{h}_m(\theta) \right\rangle + C.
+\end{equation}
+If we wish to \emph{detect} the memory effect, then we can add a ``memory amplitude'' parameter, $A_m$, which multiplies the memory contribution to the waveform, so that the likelihood becomes
+\begin{multline}
+    \label{eq:likelihood-with-Am}
+    \log \mathcal{L} =  \\ -\frac{1}{2} \left\langle r(\theta) - A_m \tilde{h}_m(\theta) \mid r(\theta) - A_m \tilde{h}_m(\theta) \right\rangle \\ + C.
+\end{multline}
+The expected memory effect in GR is recovered when $A_m = 1$; computing the posterior on $A_m$ allows us to test the consistency of the observed memory effect with the predictions of GR, and to determine whether the data prefer a non-zero memory effect at all.  Conveniently, Eq.~\eqref{eq:likelihood-with-Am} takes the form of a Gaussian on $A_m$, peaking at 
+\begin{equation}
+    \hat{A}_m = \frac{\left\langle \tilde{h}_m(\theta) \mid r(\theta) \right\rangle}{\left\langle \tilde{h}_m(\theta) \mid \tilde{h}_m(\theta) \right\rangle},
+\end{equation}
+with standard deviation of 
+\begin{equation}
+    \sigma_{A_m}^2 = \frac{1}{\left\langle \tilde{h}_m(\theta) \mid \tilde{h}_m(\theta) \right\rangle}.
+\end{equation}
+
+Marginalizing $A_m$ out of the likelihood with an (improper) flat prior, we
+obtain the marginal likelihood $\bar{\mathcal{L}}$:
+\begin{multline}
+    \log \bar{\mathcal{L}} = \log \int \dif A_m \exp\left( \log \mathcal{L} \right) = \\ -\frac{1}{2} \left( \left\langle r(\theta) \mid r(\theta) \right\rangle - \hat{A}_m \left\langle r(\theta) \mid \tilde{h}_m(\theta) \right\rangle \right) \\ - \frac{1}{2}\log\left( 2 \pi \left\langle \tilde{h}_m \mid \tilde{h}_m \right\rangle \right) + C.
+\end{multline}
+If we are given a set of samples as above, drawn from a posterior based on the original, no-memory likelihood $\mathcal{L}$, then the ratio of the marginal likelihood to the original likelihood serves as an importance weight that can be applied to the samples to obtain a new set of samples drawn from the posterior based on the marginal likelihood $\bar{\mathcal{L}}$:
+\begin{multline}
+    \log w_i = \log \bar{\mathcal{L}}(\theta_i) - \log \mathcal{L}(\theta_i) = \\ \frac{1}{2} \hat{A}_m \left\langle r(\theta_i) \mid \tilde{h}_m(\theta_i) \right\rangle \\ - \frac{1}{2}\log\left( 2 \pi \left\langle \tilde{h}_m \mid \tilde{h}_m \right\rangle \right).
+\end{multline}
+If the memory effect is not very strong in any individual event, then the importance weights will be close to 1, and the re-weighted samples will be very similar to the original samples.  Each sample can also be augmented by a value of $A_m$ drawn from the Gaussian distribution described above, to obtain a new set of samples drawn from the posterior on $A_m$ as well.
+
+We can see that the key parts of the calculation of the memory posterior over a catalog of events are 
+\begin{enumerate}
+    \item the calculation of the memory contribution to the waveform, $h_m(\theta)$, for each event;
+    \item the computation of the detector response, $R(\theta)$;
+    \item and the calculation of the inner products $\left\langle r(\theta_i)
+    \mid \tilde{h}_m(\theta_i) \right\rangle$ and $\left\langle
+    \tilde{h}_m(\theta_i) \mid \tilde{h}_m(\theta_i) \right\rangle$ using the
+    noise-weighted inner product.
+\end{enumerate}
+The latter two steps should be straightforward to extract from Bilby using the
+configuration settings for each original posterior estimation from the catalog.
+Keefe can supply the first component.
+
+Once posteriors on $A_m$ are obtained for each event, we can combine them in the
+usual hierarchical way (known to Max and Will) to obtain a posterior on the
+population distribution of $A_m$ across the catalog, and to determine whether
+the data prefer a non-zero memory effect in the population as a whole.
+
+\software
+\showyourwork \citep{Luger2021}.
 
 \bibliography{bib}
 
