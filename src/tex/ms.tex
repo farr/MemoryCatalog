@@ -113,7 +113,15 @@ We can see that the key parts of the calculation of the memory posterior over a 
 \end{enumerate}
 The latter two steps should be straightforward to extract from Bilby using the
 configuration settings for each original posterior estimation from the catalog.
-Keefe can supply the first component.
+Keefe can supply the first component.  Note that the above computation
+\emph{does not require the log-likelihood from the original posterior
+estimation}, but only the samples drawn from the original posterior, and the
+ability to compute the detector response and the inner products.  This means
+that we can apply this method to any existing posterior samples, regardless of
+how they were generated, as long as we can compute the detector response and the
+inner products for each sample.  It may be easiest to simply compute the above
+using codes of our own (effectively ignoring calibration parameters, etc) rather
+than trying to duplicate the Bilby setup?
 
 Once posteriors on $A_m$ are obtained for each event, we can combine them in the
 usual hierarchical way (known to Max and Will) to obtain a posterior on the
