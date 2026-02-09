@@ -13,8 +13,8 @@
 <a href="https://github.com/farr/MemoryCatalog/raw/main-pdf/ms.pdf">
 <img src="https://img.shields.io/badge/download-pdf-blue.svg?style=flat" alt="Download the PDF"/>
 </a>
-<a href="https://mozilla.github.io/pdf.js/web/viewer.html?file=https%3A%2F%2Fraw.githubusercontent.com%farr%2FMemoryCatalog%2Fmain-pdf%2Fms.pdf">
-<img src="https://img.shields.io/badge/view-pdf-blue.svg?style=flat" alt="Read with PDF.js"/>
+<a href="https://github.com/farr/MemoryCatalog/blob/main-pdf/ms.pdf">
+<img src="https://img.shields.io/badge/view-pdf-blue.svg?style=flat" alt="Read the PDF in the browser"/>
 </a>
 </p>
 
