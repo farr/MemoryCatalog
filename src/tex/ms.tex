@@ -98,7 +98,7 @@ obtain the marginal likelihood $\bar{\mathcal{L}}$:
 \end{multline}
 If we are given a set of samples as above, drawn from a posterior based on the original, no-memory likelihood $\mathcal{L}$, then the ratio of the marginal likelihood to the original likelihood serves as an importance weight that can be applied to the samples to obtain a new set of samples drawn from the posterior based on the marginal likelihood $\bar{\mathcal{L}}$:
 \begin{multline}
-    \log w_i = \log \bar{\mathcal{L}}(\theta_i) - \log \mathcal{L}(\theta_i) = \\ \frac{1}{2} \hat{A}_m \left\langle r(\theta_i) \mid \tilde{h}_m(\theta_i) \right\rangle \\ - \frac{1}{2}\log\left( 2 \pi \left\langle \tilde{h}_m \mid \tilde{h}_m \right\rangle \right).
+    \log w_i = \log \bar{\mathcal{L}}(\theta_i) - \log \mathcal{L}(\theta_i) = \\ \frac{1}{2} \hat{A}_m \Re \left\langle \tilde{h}_m(\theta_i) \mid r(\theta_i) \right\rangle \\ - \frac{1}{2}\log\left( 2 \pi \left\langle \tilde{h}_m \mid \tilde{h}_m \right\rangle \right).
 \end{multline}
 If the memory effect is not very strong in any individual event, then the importance weights will be close to 1, and the re-weighted samples will be very similar to the original samples.  Each sample can also be augmented by a value of $A_m$ drawn from the Gaussian distribution described above, to obtain a new set of samples drawn from the posterior on $A_m$ as well.
 
