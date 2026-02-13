@@ -2,7 +2,7 @@
 \documentclass[twocolumn]{aastex631}
 
 % Add here any additional package you need
-% \usepackage{foo}
+\usepackage{amsmath}
 
 % If you can, leave this package for last
 \usepackage{showyourwork}
@@ -84,7 +84,7 @@ If we wish to \emph{detect} the memory effect, then we can add a ``memory amplit
 \end{multline}
 The expected memory effect in GR is recovered when $A_m = 1$; computing the posterior on $A_m$ allows us to test the consistency of the observed memory effect with the predictions of GR, and to determine whether the data prefer a non-zero memory effect at all.  Conveniently, Eq.~\eqref{eq:likelihood-with-Am} takes the form of a Gaussian on $A_m$, peaking at 
 \begin{equation}
-    \hat{A}_m = \frac{\left\langle \tilde{h}_m(\theta) \mid r(\theta) \right\rangle}{\left\langle \tilde{h}_m(\theta) \mid \tilde{h}_m(\theta) \right\rangle},
+    \hat{A}_m = \frac{\Re \left\langle \tilde{h}_m(\theta) \mid r(\theta) \right\rangle}{\left\langle \tilde{h}_m(\theta) \mid \tilde{h}_m(\theta) \right\rangle},
 \end{equation}
 with standard deviation of 
 \begin{equation}
@@ -94,7 +94,7 @@ with standard deviation of
 Marginalizing $A_m$ out of the likelihood with an (improper) flat prior, we
 obtain the marginal likelihood $\bar{\mathcal{L}}$:
 \begin{multline}
-    \log \bar{\mathcal{L}} = \log \int \dif A_m \exp\left( \log \mathcal{L} \right) = \\ -\frac{1}{2} \left( \left\langle r(\theta) \mid r(\theta) \right\rangle - \hat{A}_m \left\langle r(\theta) \mid \tilde{h}_m(\theta) \right\rangle \right) \\ - \frac{1}{2}\log\left( 2 \pi \left\langle \tilde{h}_m \mid \tilde{h}_m \right\rangle \right) + C.
+    \log \bar{\mathcal{L}} = \log \int \dif A_m \exp\left( \log \mathcal{L} \right) = \\ -\frac{1}{2} \left( \left\langle r(\theta) \mid r(\theta) \right\rangle - \hat{A}_m \Re \left\langle \tilde{h}_m(\theta) \mid r(\theta) \right\rangle \right) \\ - \frac{1}{2}\log\left( 2 \pi \left\langle \tilde{h}_m \mid \tilde{h}_m \right\rangle \right) + C.
 \end{multline}
 If we are given a set of samples as above, drawn from a posterior based on the original, no-memory likelihood $\mathcal{L}$, then the ratio of the marginal likelihood to the original likelihood serves as an importance weight that can be applied to the samples to obtain a new set of samples drawn from the posterior based on the marginal likelihood $\bar{\mathcal{L}}$:
 \begin{multline}
