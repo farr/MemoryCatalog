@@ -128,6 +128,47 @@ usual hierarchical way (known to Max and Will) to obtain a posterior on the
 population distribution of $A_m$ across the catalog, and to determine whether
 the data prefer a non-zero memory effect in the population as a whole.
 
+\subsection{Hierarchical analysis}
+
+We simultaneously model the memory and all the usual astrophysical parameters following the hierarchical framework of \citep{Payne2023}.
+We assume we start from regular PE samples $\theta_i$ that have been enhanced with $\hat{A}_m$ and $\sigma_{A_m}$, henceforth $\mu_i$ and $\sigma_i$ for each sample, as described above.
+This defines the conditional distribution on $A$ given $\theta_i$, that is
+\begin{equation}
+    p(A \mid \theta_i) = \mathcal{N}(A \mid \mu_i, \sigma_i).
+\end{equation}
+We can leverage this within our hierarchical integral to marginalize over $A$ analytically without the usual Monte Carlo sum.
+
+The hierarchical likelihood for population parameters $\Lambda$ requires computing an integral of the form
+\begin{equation}
+    I = \int \frac{p(A, \theta)}{W(\theta)}\, p(A, \theta \mid \Lambda)\, \dif A \dif \theta \, .
+\end{equation}
+Where $p(A, \theta)$ is the posterior and $W(\theta)$ is an importance weight that encodes the sampling prior and any necessary Jacobians;
+we will assume that the prior on $A$ is flat, so that $W$ is independent of $A$.
+Since $p(A, \theta) = p(A\mid\theta)\,p(\theta)$, we can rewrite the above as
+\begin{equation}
+    I = \int p(A\mid\theta)\,p(\theta)\,p(A, \theta \mid \Lambda)\,{\rm d}\theta\,{\rm d}A \, ,
+\end{equation}
+where we have further assumed that the population model factorizes as $p(A, \theta) = p(A\mid\theta)\,p(\theta)$.
+
+We can now use the fact that we have $N$ samples from the posterior $\theta_i$ to approximate the integral as
+\begin{align}
+    I &\approx \int \frac{1}{N} \sum_i p(A\mid\theta_i)\,\delta(\theta-\theta_i)\,\frac{p(A, \theta \mid \Lambda)}{W(\theta)}\,{\rm d}\theta\,{\rm d}A \, , \nonumber\\
+    &= \frac{1}{N} \sum_i \int p(A\mid\theta_i)\,\frac{p(A, \theta_i \mid \Lambda)}{W(\theta_i)}\, {\rm d}A \, .
+\end{align}
+If we further assume that the population model factorizes as $p(A, \theta \mid \Lambda) = p(A\mid \Lambda_A)\,p(\theta\mid\Lambda_\theta)$, then
+\begin{equation}
+    I \approx \frac{1}{N} \sum_i \frac{p(\theta_i\mid\Lambda_\theta)}{W(\theta_i)} \int p(A\mid\theta_i)\,p(A\mid \Lambda_A)\,\,{\rm d}A \, .
+\end{equation}
+Now further assume a Gaussian population model on $A$ with mean $\mu_\Lambda$ and standard deviation $\sigma_\Lambda$, so that $p(A\mid \Lambda_A) = \mathcal{N}(A \mid \mu_\Lambda, \sigma_\Lambda)$; then the integral over $A$ can be performed analytically, yielding
+\begin{align}
+    I &\approx \frac{1}{N} \sum_i \frac{p(\theta_i\mid\Lambda_\theta)}{W(\theta_i)} \int \mathcal{N}(A \mid \mu_i, \sigma_i)\,\mathcal{N}(A \mid \mu_\Lambda, \sigma_\Lambda)\,{\rm d}A \, , \nonumber\\
+    &= \frac{1}{N} \sum_i \frac{p(\theta_i\mid\Lambda_\theta)}{W(\theta_i)}\,\mathcal{N}(\mu_i \mid \mu_\Lambda, \sqrt{\sigma_i^2 + \sigma_\Lambda^2})\, .
+\end{align}
+This is the final expression we need to compute the hierarchical likelihood.
+Everything else is as in a usual populations analysis.
+
+We will assume that there are no selection effects on $A$, which is a reasonable assumption \citep{Magee2024}.
+
 \software
 \showyourwork \citep{Luger2021}.
 
